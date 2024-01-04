@@ -19,7 +19,7 @@ public class Frog {
     }
     Frog(String _name, double ageInYears){
         this(_name);
-        this.age = (int)(ageInYears * 365);
+        this.age = (int)(ageInYears * 12);
     }
 
     Frog(String _name){

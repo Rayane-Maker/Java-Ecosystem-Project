@@ -10,7 +10,7 @@ public class Pond {
 
         //Frogs Instances
         Frog peepo = new Frog("Peepo");
-        Frog pepe = new Frog("Pepe", 10.0/365, 15);
+        Frog pepe = new Frog("Pepe", 10.0/12, 15);
         Frog peepaw = new Frog("Peepaw", 4.6, 5);
         Frog popopo = new Frog("Popopo", 10, 40); //custom
 
@@ -48,11 +48,11 @@ public class Pond {
         String quitCommand = "p";
         //Initializations
         println("\nJava Ecosystem Game (Console Version)");
-        String instructions = null;
-        readFile("gameManual.txt", instructions);
-        println("---- Game Instructions ----");
-        println(instructions);
-
+        StringBuilder instructions = new StringBuilder();
+        if (readFile("gameManual.txt", instructions)) {
+            println("---- Game Instructions ----");
+            println(instructions.toString());
+        }
 
 
         /* ///////////// Populate the pound (Random approach) /////////// */
@@ -110,24 +110,20 @@ public class Pond {
         return min*(1.0 - f) + max*f;
     }
 
-    public static boolean readFile(String path, String output) {
-        output = "";
+    public static boolean readFile(String path, StringBuilder output) {
         boolean res = false;
         try {
             RandomAccessFile file = new RandomAccessFile(path, "rw");
             String line;
-            StringBuilder content = new StringBuilder();
             while((line = file.readLine()) != null) {
-                content.append(line);
-                content.append("\n");
+                output.append(line);
+                output.append("\n");
             }
-            output = content.toString();
             res = true;
             file.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return res;
-
     }
 }
