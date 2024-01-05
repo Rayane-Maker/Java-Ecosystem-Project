@@ -5,7 +5,7 @@ import static java.lang.Math.random;
 
 public class Pond {
 
-    int FROGCOUNTMIN , FROGCOUNTMAX
+    static int FROGCOUNTMIN = 3, FROGCOUNTMAX = 10;
     public static void main(String[] args){
 
         //*********************************************************** Tests *****************************************************************//
@@ -52,6 +52,7 @@ public class Pond {
 
         //Initializations
         println("\nJava Ecosystem Game (Console Version)\n");
+
         //Load
         StringBuilder instructions = new StringBuilder();
         if (readFile("gameManual.txt", instructions)) {
