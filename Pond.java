@@ -111,7 +111,7 @@ public class Pond {
     }
 
     public static boolean readFile(String path, StringBuilder output) {
-        boolean res = false;
+        boolean success = false;
         try {
             RandomAccessFile file = new RandomAccessFile(path, "rw");
             String line;
@@ -119,11 +119,11 @@ public class Pond {
                 output.append(line);
                 output.append("\n");
             }
-            res = true;
+            success = true;
             file.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return res;
+        return success;
     }
 }
