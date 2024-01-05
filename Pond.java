@@ -4,6 +4,8 @@ import java.util.Scanner;
 import static java.lang.Math.random;
 
 public class Pond {
+
+    static int FROGCOUNTMIN = 3, FROGCOUNTMAX = 10;
     public static void main(String[] args){
 
         //*********************************************************** Tests *****************************************************************//
@@ -43,11 +45,15 @@ public class Pond {
 
 
         //*********************************************************** Game *****************************************************************//
+
         String affirmativeResp = "y";
         String yesNo = "(Y/N)";
         String quitCommand = "p";
+
         //Initializations
-        println("\nJava Ecosystem Game (Console Version)");
+        println("\nJava Ecosystem Game (Console Version)\n");
+
+        //Load
         StringBuilder instructions = new StringBuilder();
         if (readFile("gameManual.txt", instructions)) {
             println("---- Game Instructions ----");
@@ -58,7 +64,7 @@ public class Pond {
         /* ///////////// Populate the pound (Random approach) /////////// */
 
         //Frogs
-        int frogCountInit = (int)rand(3, 10);
+        int frogCountInit = (int)rand(FROGCOUNTMIN, FROGCOUNTMAX);
         Frog[] frogs = new Frog[frogCountInit];
         for (int i = 0; i < frogCountInit; i++) {
             frogs[i] = new Frog("Frog " + (i + 1));
