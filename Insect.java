@@ -2,11 +2,13 @@ public class Insect {
     //Attributes
     private double mass; //In grams
     private double speed;
+    private double nutriscore;
 
     // Constructors
     Insect(double mass, double speed) {
         this.mass = mass;
         this.speed = speed;
+        this.nutriscore = mass * 100;
     }
 
     //setters
@@ -21,6 +23,9 @@ public class Insect {
     }
     public double getSpeed() {
         return this.speed;
+    }
+    public double getNutriscore(){
+        return this.nutriscore;
     }
 
     //Specifics methods
@@ -37,6 +42,17 @@ public class Insect {
 
     public void eat(Fly fly){
 
+        //Early quit the method if the fly is dead
+        if (fly.isDead()){
+            return;
+        }
+
+        //Kill the fly or make it stronger
+        if (speed > fly.speed){
+            fly.setMass(0);
+        }else {
+            fly.grow(1);
+        }
     }
 
     public boolean isDead(){
