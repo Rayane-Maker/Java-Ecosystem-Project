@@ -1,17 +1,18 @@
-public class Waterlily extends Plant {
+public class Waterlily extends GameObject {
     private Boolean isFree;
     private int capacity;
     private int occupentCount;
+    private StaticFood[] food;
 
-    public Waterlily(Double nutriscore, Boolean eatable, Boolean isFree) {
-        super(nutriscore, eatable); // Call parent class constructor using super()
-        this.isFree = isFree;
+    public Waterlily(int capacity, StaticFood[] food) {
+        super(); // Call parent class constructor using super()
+        this.isFree = true;
         this.capacity = capacity;
-        this.occupentCount = occupentCount;
+        this.occupentCount = 0;
+        this.food = food;
     }
 
     // Override method from parent class
-    @Override
     public void displayInfo() {
         System.out.println("I am a Waterlily, I have" + this.occupentCount + "Amphibians on me, and my capacity is" + this.capacity + "!");
     }
@@ -19,9 +20,21 @@ public class Waterlily extends Plant {
     // Additional method specific to Dog class
     public void isFree() {
         if (this.capacity - this.occupentCount > 0) {
-            this.isFree = Boolean.TRUE;
+            this.isFree = true;
         } else {
-            this.isFree = Boolean.FALSE;
+            this.isFree = false;
+        }
+    }
+
+    public void arrive() {
+        if (this.isFree) {
+            this.occupentCount++;
+        }
+    }
+
+    public void quit() {
+        if (this.occupentCount > 0) {
+            this.occupentCount--;
         }
     }
 }
