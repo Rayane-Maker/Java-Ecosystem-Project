@@ -1,8 +1,8 @@
-public class Plant extends GameObject {
-    private Boolean eatable;
-    private Double nutriscore;
+public class StaticFood extends GameObject {
+    protected Boolean eatable;
+    protected Double nutriscore;
 
-    public Plant(Double nutriscore, Boolean eatable) {
+    public StaticFood(Double nutriscore, Boolean eatable) {
         this.eatable = eatable;
         this.nutriscore = nutriscore;
     }
