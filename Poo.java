@@ -1,7 +1,12 @@
 public class Poo extends StaticFood {
 
-    public Poo(Double nutriscore) {
-        super(nutriscore, true); // Call parent class constructor using super()
+    static int DEFAULT_NUTRISCORE = 8;
+    Poo() {
+        super(DEFAULT_NUTRISCORE); // Call parent class constructor using super()
+    }
+
+    Poo(int nutriscore) {
+        super(nutriscore); // Call parent class constructor using super()
     }
 
     public void displayInfo() {

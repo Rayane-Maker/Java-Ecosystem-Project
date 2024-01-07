@@ -1,7 +1,13 @@
 public class Flower extends StaticFood {
 
-    public Flower(Double nutriscore) {
-        super(nutriscore, true); // Call parent class constructor using super()
+    static int DEFAULT_NUTRISCORE = 4;
+
+    Flower() {
+        super(DEFAULT_NUTRISCORE); // Call parent class constructor using super()
+    }
+
+    Flower(int nutriscore) {
+        super(nutriscore); // Call parent class constructor using super()
     }
 
     public void displayInfo() {

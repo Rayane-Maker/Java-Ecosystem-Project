@@ -1,23 +1,36 @@
-public class Fly {
 
-    //Attributes
-    public double mass; //In grams
-    public double speed;
-
+/**
+ * <b>This class inherits from Insect class and simulates a fly.</b>
+ * <p>
+ * Fly class redefine :
+ * <ul>
+ * <li>eat() method.</li>
+ * <li>grow() method.</li>
+ * <li>toString().</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Fly inherits directly from Insect class which inherits
+ * from Animal class.
+ * </p>
+ *
+ *
+ * @author Theo Thuiller
+ * @version 1.0
+ */
+public class Fly extends Insect{
 
     //Constructors
     Fly(float _mass, double _speed){
-        this(_mass);
+        super(_mass, _speed);
     }
 
     Fly(double _mass){
-        this();
-        this.mass = _mass;
+        super(_mass);
     }
 
     Fly(){
-        this.mass = 5;
-        this.speed = 10;
+        super();
     }
 
 
@@ -49,6 +62,27 @@ public class Fly {
         return String.format("I'm a speedy fly with %.2f speed and %.2f mass", speed, mass);
     }
 
+    //Fly can eat dead animals but also static food
+
+    @Override
+    public void eat(Biologic food){
+        super.eat(food);
+        if (food instanceof Animal animalFood) { //Pattern variable
+            if (animalFood.isDead()) {
+                this.grow(animalFood.nutriscore);
+            }
+        } else if (food instanceof StaticFood staticFood) {
+            this.grow(staticFood.nutriscore);
+        }
+    }
+
+    /**
+     * Grow the fly.
+     *
+     * @param _deltaMass
+     *            The amount of mass.
+     */
+    @Override
     public void grow(int _deltaMass){
 
         //Make mass change impact speed performance
@@ -60,7 +94,4 @@ public class Fly {
         mass += _deltaMass;
     }
 
-    public boolean isDead(){
-        return mass <= 0;
-    }
 }
