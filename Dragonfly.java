@@ -1,43 +1,96 @@
-public class Dragonfly extends Insect {
+
+/**
+ * <b>This class inherits from Insect class and simulates a dragonfly.</b>
+ * <p>
+ * Dragonfly class redefine :
+ * <ul>
+ * <li>eat() method.</li>
+ * <li>grow() method.</li>
+ * <li>toString().</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Firefly inherits directly from Insect class which inherits
+ * from Animal class.
+ * </p>
+ *
+ *
+ * @author Theo Thuiller
+ * @version 1.0
+ */
+
+public class Dragonfly extends Insect{
+
+    //Attributes
+    public double mass; //In grams
+    public double speed;
+
 
     //Constructors
-    Dragonfly(double mass, double speed){
-        super(mass,speed); // call the basic constructors from insect
+    Dragonfly(float _mass, double _speed){
+        super(_mass, _speed);
     }
 
-    Dragonfly(double mass){
-        this(mass,10); // valeur de base à revoir pour équilibrer le jeu plus tard
+    Dragonfly(double _mass){
+        super(_mass);
     }
+
     Dragonfly(){
-        this(2); // valeur de base à revoir pour équilibrer le jeu plus tard
+        super();
     }
 
-    public void eat(Fly fly){
 
-        //Early quit the method if the fly is dead
-        if (fly.isDead()){
-            return;
-        } // penser à ajouter une condition sur la position relative des insectes visés
+    //Setters
+    public void setMass(double _mass){
+        this.mass = _mass < 0 ? this.mass : _mass;
+    }
+    public void setSpeed(double _speed) {
+        this.speed = _speed;
+    }
 
-        //Kill the fly or make it stronger
-        if (this.getSpeed() > fly.getSpeed() ){
-            fly.setMass(0);
-        }else {
-            fly.grow(1);
+    //Getters
+    public double getMass(){
+        return this.mass;
+    }
+    public double getSpeed() {
+        return this.speed;
+    }
+
+
+    //Specifics methods
+    @Override
+    public String toString() {
+        //return super.toString();
+        if (this.mass <= 0){
+            return String.format("I'm dead, but I used to be a Dragonfly with a speed of %.2f", this.speed);
+        }
+
+        return String.format("I'm a speedy Dragonfly with %.2f speed and %.2f mass", speed, mass);
+    }
+
+    //Dragonfly can eat dead animals but also static food
+
+    @Override
+    public void eat(Biologic food){
+        super.eat(food);
+        if (food instanceof Animal animalFood) { //Pattern variable
+            if (animalFood.isDead()) {
+                this.grow(animalFood.nutriscore);
+            }
         }
     }
 
-    public void eat(Firefly firefly){
-        //Early quit the method if the fly is dead
-        if (firefly.isDead()){
-            return;
-        } // penser à ajouter une condition sur la position relative des insectes visés
 
-        //Kill the fly or make it stronger
-        if (this.getSpeed() > firefly.getSpeed()){
-            firefly.setMass(0);
-        }else {
-            firefly.grow(1);
-        }
+    @Override
+    public void grow(int _deltaMass){
+
+        //Make mass change impact speed performance
+        float speedIncrFactor = 1;
+        float speedDecrFactor = -0.5f;
+        speed += mass < 20 ? _deltaMass * speedIncrFactor : _deltaMass * speedDecrFactor;
+
+        //Increase mass
+        mass += _deltaMass;
     }
+
 }

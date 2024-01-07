@@ -3,8 +3,8 @@ public class Waterlily extends GameObject {
     private int capacity;
     private int occupentCount;
     private StaticFood[] food;
-
-    public Waterlily(int capacity, StaticFood[] food) {
+    private Animal[] animals;
+    public Waterlily(int capacity, StaticFood[] food, Animal[] animals) {
         super(); // Call parent class constructor using super()
         this.isFree = true;
         this.capacity = capacity;

@@ -1,11 +1,15 @@
-                            * Pond *
+                            * Pond Travel *
 
+You're an amphibian! Reach the top side of the pond, row by row of water lilies.
+Each row represents a stage where you must make a choice: you can decide which
+water lily to jump to for the next row or attempt to eat any potential insects on
+the current water lily.
 
-Tilt the  floor to roll a  ball through an obstacle  course within the
-given  time.  If  the  ball falls  or time  expires, a ball is lost.
+But be cautious! Some water lilies conceal venomous insects that can harm you.
+If you proceed to the next stage without eating, you'll have to consume on the
+subsequent water lily, so plan your strategy wisely!
 
-Collect coins to unlock the exit  and earn extra balls.  Red coins are
-worth 5.  Blue coins are worth 10.  A ball is awarded for 100 coins.
+Eat insects make you grow.
 
 
 * INSTRUCTIONS

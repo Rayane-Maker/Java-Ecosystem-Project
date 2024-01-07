@@ -1,14 +1,13 @@
-public class StaticFood extends GameObject {
-    protected Boolean eatable;
-    protected Double nutriscore;
+public class StaticFood extends Biologic {
+    protected int nutriscore;
 
-    public StaticFood(Double nutriscore, Boolean eatable) {
-        this.eatable = eatable;
+    public StaticFood(int nutriscore) {
+        super(); // Call parent class constructor using super()
         this.nutriscore = nutriscore;
     }
 
     public void displayInfo() {
-        System.out.println("I am eatable :" + this.eatable + " (nutriscore :" + this.nutriscore + ")");
+        System.out.println("I am eatable and my nutriscore is : " + this.nutriscore);
     }
 }
 
