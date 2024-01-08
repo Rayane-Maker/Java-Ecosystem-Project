@@ -4,6 +4,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class BiologicTest {
 
     @Test
+    void testConstructor() {
+        Biologic biologic = new Biologic();
+
+        // Vérifie si pondGridPosition est initialisé correctement
+        assertEquals(0, biologic.pondGridPosition.x);
+        assertEquals(0, biologic.pondGridPosition.y);
+
+        // Vérifie si nutriscore est initialisé correctement
+        assertEquals(0, biologic.nutriscore);
+    }
+
+    @Test
     void setNutriscore() {
         // Create an instance of Biologic
         Biologic biologic = new Biologic();

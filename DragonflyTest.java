@@ -66,17 +66,22 @@ class DragonflyTest {
         assertEquals(expected, actual);
     }
 
-    /* Revoir plus tard comment résoudre le problème
     @Test
-    void eat() {
-        Dragonfly dragonfly = new Dragonfly(5.0);
-        Biologic food = new Animal();
-        dragonfly.eat(food);
-        // Add assertions based on the expected behavior of the eat method
-        // For example, you might want to check if the dragonfly's mass has changed after eating
-        assertTrue(dragonfly.getMass() > 5.0); // Adjust the condition based on your implementation
+    void testEat() {
+        // Create a Dragonfly
+        Dragonfly dragonfly = new Dragonfly(10.0, 25.0);
+
+        // Create a dead animal with nutriscore 8
+        Animal deadAnimal = new Animal();
+        deadAnimal.setMass(0.0); // Set mass to 0 to simulate a dead animal
+        deadAnimal.setNutriscore(8);
+
+        // Call the eat method on Dragonfly
+        dragonfly.eat(deadAnimal);
+
+        // Verify if the Dragonfly has grown correctly based on the nutriscore of the dead animal
+        assertEquals(18.0, dragonfly.getMass()); // Dragonfly's mass should increase by the nutriscore
     }
-    */
 
     @Test
     void grow() {

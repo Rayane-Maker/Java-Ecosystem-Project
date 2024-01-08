@@ -4,7 +4,6 @@ public class Biologic extends GameObject{
     public Vector2 pondGridPosition;
     protected int nutriscore;
 
-
     public Biologic(){
         super();
         pondGridPosition = new Vector2(0, 0);

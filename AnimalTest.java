@@ -6,6 +6,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class AnimalTest {
 
     @Test
+    void testConstructor() {
+        Animal animal = new Animal();
+
+        // Verify if the name is initialized correctly
+        assertEquals("Anonymous", animal.name);
+
+        // Verify if the mass is initialized correctly
+        assertEquals(0.0, animal.mass);
+
+        // Verify if the speed is initialized correctly
+        assertEquals(0.0, animal.speed);
+
+        // Verify if currentWaterlily is initialized to null
+        assertNull(animal.currentWaterlily);
+    }
+
+    @Test
     void setMass() {
         // Create an instance of Animal
         Animal animal = new Animal();
