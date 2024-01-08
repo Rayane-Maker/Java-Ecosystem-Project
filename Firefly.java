@@ -21,22 +21,23 @@
 
 public class Firefly extends Insect{
 
-    //Attributes
-    public double mass; //In grams
-    public double speed;
-
-
     //Constructors
     Firefly(float _mass, double _speed){
         super(_mass, _speed);
+        this.nutriscore = 6;
     }
 
     Firefly(double _mass){
+
         super(_mass);
+        this.nutriscore = 6;
+
     }
 
     Firefly(){
         super();
+        this.nutriscore = 6;
+
     }
 
 

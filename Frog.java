@@ -1,7 +1,6 @@
 public class Frog extends Amphibian{
 
     //Attributes
-    public double tongueSpeed;
 
     public boolean isFroglet;
 
@@ -60,20 +59,8 @@ public class Frog extends Amphibian{
 
     @Override
     public void eat(Biologic food){
+        super.eat(food);
 
-        if (food instanceof Insect insectFood) {
-            //Early quit the method if the fly is dead
-            if (insectFood.isDead()) {
-                return;
-            }
-
-            //Kill the fly or make it stronger
-            if (tongueSpeed > insectFood.speed) {
-                insectFood.setMass(0);
-            } else {
-                insectFood.grow(1);
-            }
-        }
     }
 
     @Override

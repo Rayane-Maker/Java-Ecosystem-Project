@@ -1,18 +1,14 @@
 public class Insect extends Animal{
 
-    //Attributes
-    public double mass; //In grams
-    public double speed;
-
-
     //Constructors
-    Insect(float _mass, double _speed){
-        this(_mass);
+    Insect(float mass, double speed){
+        this(mass);
+        this.speed = speed;
     }
 
-    Insect(double _mass){
+    Insect(double mass){
         this();
-        this.mass = _mass;
+        this.mass = mass;
     }
 
     Insect(){
@@ -22,11 +18,11 @@ public class Insect extends Animal{
 
 
     //Setters
-    public void setMass(double _mass){
-        this.mass = _mass < 0 ? this.mass : _mass;
+    public void setMass(double mass){
+        this.mass = mass < 0 ? this.mass : mass;
     }
-    public void setSpeed(double _speed) {
-        this.speed = _speed;
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 
     //Getters
@@ -40,12 +36,12 @@ public class Insect extends Animal{
 
     @Override
     public void eat(Biologic food) {
-
+        super.eat(food);
     }
 
     @Override
     public void grow(int _deltaMass) {
-
+        super.grow(_deltaMass);
     }
 
 }

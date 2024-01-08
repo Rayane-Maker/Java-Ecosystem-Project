@@ -1,3 +1,6 @@
+import Mathf.Vector2;
+import java.util.stream.IntStream;
+
 import java.io.RandomAccessFile;
 import java.util.Objects;
 import java.util.Random;
@@ -6,15 +9,15 @@ import static java.lang.Math.random;
 
 public class Pond {
 
-    final static int FROGCOUNTMIN = 3, FROGCOUNTMAX = 10;
-    final static int WATERLILIES_COUNT_MIN = 3, WATERLILIES_COUNT_MAX = 5;
+    final static int ROW_COUNT_MIN = 3, ROW_COUNT_MAX = 8;
+    final static int WATERLILIES_COUNT_MIN = 2, WATERLILIES_COUNT_MAX = 5;
 
     final static int WATERLILIES_CAPACITY_MIN = 3, WATERLILIES_CAPACITY_MAX = 5;
     
     final static int INSECT_TYPE_COUNT = 3;
     final static int FOOD_TYPE_COUNT = 2;
     final static int FOOD_COUNT_MIN = 1, FOOD_COUNT_MAX = 3;
-    final static int FOOD_APPARITION_CHANCE = 50, INSECT_APPARITION_CHANCE = 80; //In percentage
+    final static int FOOD_APPARITION_CHANCE = 50, INSECT_APPARITION_CHANCE = 100; //In percentage
 
     final static Double SPACE_BETWEEN_ROW = 5.0, SPACE_BETWEEN_WATERLILIES = 3.0;
 
@@ -23,29 +26,36 @@ public class Pond {
 
     public static Animal[] animals;
 
-    String affirmativeResp = "y";
-    String yesNo = "(Y/N)";
-    static String quitCommand = "p";
+    final static String quitCommand = "p";
 
-    /********** Game Lifecycle ***********/
+    final static String eatCommand = "e";
+    static Amphibian player;
+    static Row nextRow;
+    static int score = 0;
+    static int scoreMultiplier = 10;
+
+    static boolean gameFinished = false;
+
+
+    /*********************** Game Lifecycle ***************/
     private static boolean quitGame;
     public static void main(String[] args){
-        Start();
+        onStart();
 
         while (!quitGame) {
-            Loop();
+            onLoop();
         }
 
     }
-    public static void QuitGame(){
+    public static void quitGame(){
         quitGame = true;
     }
-    /************************************/
+    /*******************************************************/
 
 
 
 
-    public static void Start() {
+    public static void onStart() {
 
         //**** Tests ****//
 
@@ -84,46 +94,112 @@ public class Pond {
 
 
         //Game Initialization
-        GameInit();
-    }
-
-    public static void Loop(){
-
-        /* ///////////// Print pound state /////////// */
-        println("\nThe pound contain : ");
-
-        println(String.format("Enter '%s' to quit the game", quitCommand));
-
-        //Scan user keyboard inputs
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-
-        //Quit the game
-        if (Objects.equals(userInput.toLowerCase(), quitCommand)){
-            QuitGame();
-        }
-
-    }
-
-    ////////////////// Functions ////////////////////////////
-
-    public static void GameInit() {
         println("\nJava Ecosystem Game (Console Version)\n");
 
         /* //Load Game Instructions // */
         StringBuilder instructions = new StringBuilder();
         if (readFile("gameManual.txt", instructions)) {
-            println("---- Game Instructions ----");
             println(instructions.toString());
         }
 
         /* // Generate and populate the pond (Automatic/Random approach) // */
         pond = GeneratePound();
+        println(String.format("There are %d rows", pond.length));
+
+        //Ask the player for a name for its amphibious character
+        println("\nEnter your name : \n");
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
+
+        //Create the player
+        player = new Frog(userInput, rand(0.1, 1), 50);
+
+        //Place the player
+        player.move(0, 0, pond);
+
     }
-    
+
+    public static void onLoop(){
+
+        if (player.pondGridPosition.y.intValue() < pond.length - 1) {
+
+            /* ///////////// Print animals in front of the player /////////// */
+            System.out.println(player);
+            println(String.format("\nI am at the row number %d. I hear voices coming from the next row: \n", player.pondGridPosition.y.intValue() + 1));
+            player.observeForward(pond);
+
+            /* ///////////// Purpose action choices to the player /////// */
+            println("\nEnter 'e' to try to eat insects on your waterlily. You can enter one of the following waterlily number to pass and jump on the corresponding waterlily : ");
+            nextRow = pond[player.pondGridPosition.y.intValue() + 1];
+            IntStream.rangeClosed(1, nextRow.waterlilies.length).forEachOrdered((i) -> System.out.printf(".%d   ",i));
+            println("");
+
+        }
+        else{
+            println(String.format("Your score : %d", score));
+            gameFinished = true;
+        }
+
+        //Player Actions
+        if (!gameFinished) {
+
+            boolean validInput = false;
+            //Scan user keyboard inputs
+            while (!validInput) {
+                Scanner scanner = new Scanner(System.in);
+
+                if (scanner.hasNextInt()) {
+                    int waterlilyChoice = scanner.nextInt();
+                    if (waterlilyChoice <= nextRow.waterlilies.length && waterlilyChoice > 0) {
+                        player.move((int) (player.pondGridPosition.y + 1), waterlilyChoice - 1, pond);
+                        validInput = true;
+                    } else {
+                        println("Please enter a valid waterlily choice number");
+                    }
+                } else {
+                    String userInput = scanner.nextLine();
+
+                    //Quit the game
+                    if (Objects.equals(userInput.toLowerCase(), quitCommand)) {
+                        quitGame();
+                        validInput = true;
+                    }
+
+                    //Eat
+                    if (Objects.equals(userInput.toLowerCase(), eatCommand)) {
+                        Animal[] animals = player.currentWaterlily.getAnimals();
+                        if (animals.length > 1) {
+
+                            Animal animalToEat = null;
+                            for (Animal animal : animals) {
+                                if (animal != player) {
+                                    animalToEat = animal;
+
+                                    if (rand(0, 100) < 40) {
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (animalToEat!=null) {
+                                player.eat(animalToEat);
+                                score += animalToEat.nutriscore;
+                            }
+                        }
+                        validInput = true;
+                    }
+                }
+            }
+        }else{
+            quitGame();
+        }
+    }
+
+    ////////////////// Functions ////////////////////////////
+
     public static Row[] GeneratePound() {
         //Rows of waterlilies
-        int rowsCount = (int) rand(FROGCOUNTMIN, FROGCOUNTMAX);
+        int rowsCount = (int) rand(ROW_COUNT_MIN, ROW_COUNT_MAX);
         Row[] rows = new Row[rowsCount];
         for (int rowId = 0; rowId < rowsCount; rowId++) {
 
@@ -134,59 +210,53 @@ public class Pond {
             for (int wId = 0; wId < waterliliesCount; wId++) {
                 double posX = (wId + (waterliliesCount - 1) / 2.0) * SPACE_BETWEEN_WATERLILIES;
 
+                waterlilies[wId] = new Waterlily((int) rand(WATERLILIES_CAPACITY_MIN, WATERLILIES_CAPACITY_MAX), new Vector2(wId, rowId));
+
+
                 //Static food generation
-                StaticFood[] staticFoods;
-                if (rand(0, 100) < FOOD_APPARITION_CHANCE) {
+                if (rand(0, 100) <= FOOD_APPARITION_CHANCE && rowId != 0) {
                     int foodCount = (int) rand(FOOD_COUNT_MIN, FOOD_COUNT_MAX);
-                    staticFoods = new StaticFood[foodCount];
 
                     for (int foodId = 0; foodId < foodCount; foodId++) {
                         Random rnd = new Random();
                         int foodType = rnd.nextInt(FOOD_TYPE_COUNT);
-                        switch (foodType) {
-                            case 0:
-                                staticFoods[foodId] = new Flower();
-                                break;
-                            case 1:
-                                staticFoods[foodId] = new Poo();
-                                break;
-                            default:
-                                staticFoods[foodId] = new StaticFood(2);
-                        }
+                        StaticFood staticFood = switch (foodType) {
+                            case 0 -> new Flower();
+                            case 1 -> new Poo();
+                            default -> new StaticFood(2);
+                        };
+                        waterlilies[wId].addFood(staticFood);
                     }
-                } else {
-                    staticFoods = new StaticFood[0];
+
                 }
 
-                /*Insect generation, only one insect is generated per waterlily
-                so a 1 element array is used (because waterlilies take an array for Animal)*/
-                Insect[] insects = new Insect[1];
-                if (rand(0, 100) < INSECT_APPARITION_CHANCE) {
+
+                /*Insect generation, only one insect is generated per waterlily */
+                Insect insect;
+                if (rand(0, 100) <= INSECT_APPARITION_CHANCE && rowId != 0) {
                     Random rnd = new Random();
                     int insectType = rnd.nextInt(INSECT_TYPE_COUNT);
                     switch (insectType) {
                         case 0:
-                            insects[0] = new Fly();
+                            insect = new Fly(4, rand(1,20));
                             break;
                         case 1:
-                            insects[0] = new Firefly();
+                            insect = new Firefly(5, rand(1,4));
                             break;
                         case 2:
-                            insects[0] = new Dragonfly();
+                            insect = new Dragonfly(3, rand(1,8));
                             break;
                         default:
-                            insects[0] = new Fly();
+                            insect = new Fly();
                     }
-                }else {
-                    insects = new Insect[0];
+                    insect.position = new Vector2(posX, posY);
+                    waterlilies[wId].addAnimal(insect);
                 }
 
-                waterlilies[wId] = new Waterlily((int) rand(WATERLILIES_CAPACITY_MIN, WATERLILIES_CAPACITY_MAX), staticFoods, insects);
 
                 //Set positions (for graphic version)
                 waterlilies[wId].position.x = posX;
                 waterlilies[wId].position.y = posY;
-                insects[0].position = waterlilies[wId].position;
 
             }
 

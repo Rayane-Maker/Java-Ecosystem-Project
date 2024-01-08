@@ -1,46 +1,11 @@
-                            * Pond *
+------------------------------- Game Instructions -------------------------------
+
+You're a sight-impaired amphibian, but you have a good hear! Reach the top side
+of the pond, row by row of water lilies. Each row represents a stage where you
+must make a choice: you can decide which water lily to jump to for the next row or
+attempt to eat any potential insects on the current water lily.
+
+Eat insects make you grow. Press 'e' to eat;
+To quit the game press 'p'.
 
 
-Tilt the  floor to roll a  ball through an obstacle  course within the
-given  time.  If  the  ball falls  or time  expires, a ball is lost.
-
-Collect coins to unlock the exit  and earn extra balls.  Red coins are
-worth 5.  Blue coins are worth 10.  A ball is awarded for 100 coins.
-
-
-* INSTRUCTIONS
-
-Enter 'p'  to begin.   Mouse motion tilts  the floor.   Mouse buttons
-rotate the viewpoint.  The following  keyboard controls are defined by
-default; most  of them can  be changed  in a configuration  file.  See
-below for details.
-
-    ESC    Pause and resume / Exit
-    SHIFT  Fast camera rotation
-
-    1      Chase Camera (default)
-    2      Lazy Camera
-    3      Manual Camera
-
-    F9     Toggle frame counter
-    F10    Hide HUD
-    F12    Snap a screenshot
-
-    UP     Tilt the floor forward
-    DOWN   Tilt the floor backward
-    LEFT   Tilt the floor left
-    RIGHT  Tilt the floor right
-
-    D      Rotate the view right
-    S      Rotate the view left
-
-    R      Restart the current level
-
-    TAB    Cycle through scores in high-score table
-
-
-* LEVEL PROGRESSION
-
-Neverball levels are  grouped in level sets. There are  two game modes
-or ways  of progressing through  the levels:  the Normal mode  and the
-Challenge mode.
