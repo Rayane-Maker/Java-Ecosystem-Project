@@ -1,3 +1,23 @@
+
+/**
+ * <b>This class inherits from Biologic class and simulates an animal.</b>
+ * <p>
+ * Animal class define :
+ * <ul>
+ * <li>eat() method.</li>
+ * <li>grow() method.</li>
+ * <li>toString().</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Firefly inherits directly from Biologic class which inherits
+ * from GameObject class.
+ * </p>
+ *
+ *
+ * @author Theo Thuiller
+ * @version 1.0
+ */
 import Mathf.Vector2;
 
 public class Animal extends Biologic {
@@ -33,6 +53,13 @@ public class Animal extends Biologic {
 
     //Specifics methods
 
+    /**
+     * moves the animal from its current waterlily to the targeted one
+     * waterlilies are contained in the pond
+     * @param rowID
+     * @param waterlilyID
+     * @param pond
+     */
     public void move(int rowID, int waterlilyID, Row[] pond) {
 
         Waterlily targetWaterlily = pond[rowID].waterlilies[waterlilyID];
@@ -59,7 +86,7 @@ public class Animal extends Biologic {
 
 
     /**
-     * Grow the animal by increasing it key
+     * Grows the animal by increasing it key
      * characteristic by delta.
      * Each child class instances has its own
      * implementation of how growing affect the
@@ -73,7 +100,7 @@ public class Animal extends Biologic {
 
 
     /**
-     * Listen for animals and insects forward and display theirs
+     * Listens for animals and insects forward and display theirs
      * responses on the console
      * @param pond
      *            the animal observing its forward surroundings.

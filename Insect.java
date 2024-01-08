@@ -1,3 +1,23 @@
+/**
+ * <b>This class inherits from Animal class and simulates an insect.</b>
+ * <p>
+ * Insect class redefine :
+ * <ul>
+ * <li>eat() method.</li>
+ * <li>grow() method.</li>
+ * <li>toString().</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Insect inherits directly from Animal class which inherits
+ * from GameObject class.
+ * </p>
+ *
+ *
+ * @author Theo Thuiller
+ * @version 1.0
+ */
+
 public class Insect extends Animal{
 
     //Constructors

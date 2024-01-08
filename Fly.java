@@ -69,7 +69,12 @@ public class Fly extends Insect{
     }
 
     //Fly can eat dead animals but also static food
-
+    /**
+     * if the food is an Animal class instance, uses it as a variable and eats it
+     * fly can also eat StaticFood, if it is so, uses it as a variable and eats it
+     * @param food
+     *            The biologic element to try to feed the animal.
+     */
     @Override
     public void eat(Biologic food){
         super.eat(food);

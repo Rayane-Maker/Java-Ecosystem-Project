@@ -1,3 +1,22 @@
+
+/**
+ * <b>This class inherits from Animal class and simulates a Amphibian.</b>
+ * <p>
+ * Amphibian class redefine :
+ * <ul>
+ * <li>eat() method.</li>
+ * <li>grow() method.</li>
+ * <li>toString().</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Amphibian inherits directly from Animal.
+ * </p>
+ *
+ *
+ * @author Theo Thuiller
+ * @version 1.0
+ */
 public class Amphibian extends Animal {
 
     public int age; //In months
@@ -19,6 +38,11 @@ public class Amphibian extends Animal {
         Amphibian.species = "Rare Pepe";
     }
 
+    /**
+     *If the insect (class Biologic) is alive and the tongue's speed is superior to the insect's speed, it kills it, displays a message and grows the amphibian
+     * @param food
+     *            The biologic element to try to feed the animal.
+     */
     @Override
     public void eat(Biologic food) {
         if (food instanceof Insect insectFood) {
