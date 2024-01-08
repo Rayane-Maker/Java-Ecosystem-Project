@@ -263,7 +263,8 @@ public class Pond {
             //Populate row of generated waterlilies
             rows[rowId] = new Row(waterlilies);
 
-            //Set position (for graphic version)
+            //Set position (for graphic version)dfs
+
             rows[rowId].position.x = 0.0;
             rows[rowId].position.y = rowId * SPACE_BETWEEN_ROW;
 

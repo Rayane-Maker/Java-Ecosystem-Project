@@ -18,6 +18,16 @@ public class Waterlily extends GameObject {
         this.pondGridPosition = pondGridPosition;
         this.animals = new Animal[0]; // Initialize animals array properly
     }
+    // New parameterless constructor for the tests
+    public Waterlily() {
+        super(); // Call the default constructor of the parent class
+        this.isFree = true;
+        this.capacity = 0; // Replace with the desired default value
+        this.occupentCount = 0;
+        this.foods = new StaticFood[0];
+        this.pondGridPosition = new Vector2(0, 0); // Replace with the desired default value
+        this.animals = new Animal[0];
+    }
 
     public Vector2 getPondGridPosition() {
         return this.pondGridPosition;
