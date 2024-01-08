@@ -1,7 +1,8 @@
 public class Insect extends Animal{
 
     //Constructors
-    Insect(float mass, double speed){
+    // constructeurs modifié car mass était un float
+    Insect(double mass, double speed){
         this(mass);
         this.speed = speed;
     }

@@ -22,7 +22,7 @@
 public class Dragonfly extends Insect{
 
     //Constructors
-    Dragonfly(float _mass, double _speed){
+    Dragonfly(double _mass, double _speed){
         super(_mass, _speed);
         this.nutriscore = 6;
 
