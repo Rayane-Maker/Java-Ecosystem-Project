@@ -23,14 +23,20 @@ public class Fly extends Insect{
     //Constructors
     Fly(float _mass, double _speed){
         super(_mass, _speed);
+        this.nutriscore = 2;
+
     }
 
     Fly(double _mass){
         super(_mass);
+        this.nutriscore = 2;
+
     }
 
     Fly(){
         super();
+        this.nutriscore = 2;
+
     }
 
 
@@ -67,7 +73,7 @@ public class Fly extends Insect{
     @Override
     public void eat(Biologic food){
         super.eat(food);
-        if (food instanceof Animal animalFood) { //Pattern variable
+        if (food instanceof Animal animalFood) {
             if (animalFood.isDead()) {
                 this.grow(animalFood.nutriscore);
             }
@@ -75,6 +81,7 @@ public class Fly extends Insect{
             this.grow(staticFood.nutriscore);
         }
     }
+
 
     /**
      * Grow the fly.

@@ -1,50 +1,11 @@
-                            * Pond Travel *
+------------------------------- Game Instructions -------------------------------
 
-You're an amphibian! Reach the top side of the pond, row by row of water lilies.
-Each row represents a stage where you must make a choice: you can decide which
-water lily to jump to for the next row or attempt to eat any potential insects on
-the current water lily.
+You're a sight-impaired amphibian, but you have a good hear! Reach the top side
+of the pond, row by row of water lilies. Each row represents a stage where you
+must make a choice: you can decide which water lily to jump to for the next row or
+attempt to eat any potential insects on the current water lily.
 
-But be cautious! Some water lilies conceal venomous insects that can harm you.
-If you proceed to the next stage without eating, you'll have to consume on the
-subsequent water lily, so plan your strategy wisely!
-
-Eat insects make you grow.
+Eat insects make you grow. Press 'e' to eat;
+To quit the game press 'p'.
 
 
-* INSTRUCTIONS
-
-Enter 'p'  to begin.   Mouse motion tilts  the floor.   Mouse buttons
-rotate the viewpoint.  The following  keyboard controls are defined by
-default; most  of them can  be changed  in a configuration  file.  See
-below for details.
-
-    ESC    Pause and resume / Exit
-    SHIFT  Fast camera rotation
-
-    1      Chase Camera (default)
-    2      Lazy Camera
-    3      Manual Camera
-
-    F9     Toggle frame counter
-    F10    Hide HUD
-    F12    Snap a screenshot
-
-    UP     Tilt the floor forward
-    DOWN   Tilt the floor backward
-    LEFT   Tilt the floor left
-    RIGHT  Tilt the floor right
-
-    D      Rotate the view right
-    S      Rotate the view left
-
-    R      Restart the current level
-
-    TAB    Cycle through scores in high-score table
-
-
-* LEVEL PROGRESSION
-
-Neverball levels are  grouped in level sets. There are  two game modes
-or ways  of progressing through  the levels:  the Normal mode  and the
-Challenge mode.

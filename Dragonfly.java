@@ -21,22 +21,23 @@
 
 public class Dragonfly extends Insect{
 
-    //Attributes
-    public double mass; //In grams
-    public double speed;
-
-
     //Constructors
     Dragonfly(float _mass, double _speed){
         super(_mass, _speed);
+        this.nutriscore = 6;
+
     }
 
     Dragonfly(double _mass){
         super(_mass);
+        this.nutriscore = 6;
+
     }
 
     Dragonfly(){
         super();
+        this.nutriscore = 6;
+
     }
 
 
@@ -68,7 +69,6 @@ public class Dragonfly extends Insect{
         return String.format("I'm a speedy Dragonfly with %.2f speed and %.2f mass", speed, mass);
     }
 
-    //Dragonfly can eat dead animals but also static food
 
     @Override
     public void eat(Biologic food){
