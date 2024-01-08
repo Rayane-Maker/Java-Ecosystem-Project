@@ -14,9 +14,9 @@ public class Waterlily extends GameObject {
         this.isFree = true;
         this.capacity = capacity;
         this.occupentCount = 0;
-        this.foods = foods;
+        this.foods = new StaticFood[0]; // Initialize foods array properly
         this.pondGridPosition = pondGridPosition;
-        this.animals = animals;
+        this.animals = new Animal[0]; // Initialize animals array properly
     }
 
     public Vector2 getPondGridPosition() {
