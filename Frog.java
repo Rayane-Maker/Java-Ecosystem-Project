@@ -1,3 +1,5 @@
+import StringUtil.StringColor;
+
 public class Frog extends Amphibian{
 
     //Attributes
@@ -36,6 +38,7 @@ public class Frog extends Amphibian{
     //Specific methods
     @Override
     public void grow(int _deltaAge){
+        super.grow(_deltaAge);
 
         //Make age change impact tongue speed performance
         float speedIncrFactor = 1;
@@ -60,7 +63,6 @@ public class Frog extends Amphibian{
     @Override
     public void eat(Biologic food){
         super.eat(food);
-
     }
 
     @Override

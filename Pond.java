@@ -1,4 +1,7 @@
-import Mathf.Vector2;
+import Mathf.Vector2Double;
+import Mathf.Vector2Int;
+import StringUtil.StringColor;
+
 import java.util.stream.IntStream;
 
 import java.io.RandomAccessFile;
@@ -106,31 +109,37 @@ public class Pond {
         pond = GeneratePound();
         println(String.format("There are %d rows", pond.length));
 
-        //Ask the player for a name for its amphibious character
+        //Ask the player for a name for its amphibian character
         println("\nEnter your name : \n");
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
 
-        //Create the player
-        player = new Frog(userInput, rand(0.1, 1), 50);
-
-        //Place the player
+        //Create the player and place it
+        player = new Frog(userInput, 1f/12, 15);
         player.move(0, 0, pond);
-
     }
 
     public static void onLoop(){
 
-        if (player.pondGridPosition.y.intValue() < pond.length - 1) {
+        if (player.pondGridPosition.y < pond.length - 1) {
 
             /* ///////////// Print animals in front of the player /////////// */
-            System.out.println(player);
-            println(String.format("\nI am at the row number %d. I hear voices coming from the next row: \n", player.pondGridPosition.y.intValue() + 1));
-            player.observeForward(pond);
+            System.out.print(StringColor.ANSI_GREEN);
+            System.out.print(player);
+            println(String.format("\nI am at the row number %d. I hear voices coming from the next row: \n", player.pondGridPosition.y + 1));
+            System.out.print(StringColor.ANSI_RESET);
+            String[][] allVoices = player.observeForward(pond);
+            for (String[] waterlilyVoices : allVoices){
+                for (String voice : waterlilyVoices) {
+                    System.out.print(StringColor.ANSI_BLUE);
+                    println(voice);
+                    System.out.print(StringColor.ANSI_RESET);
+                }
+            }
 
             /* ///////////// Purpose action choices to the player /////// */
             println("\nEnter 'e' to try to eat insects on your waterlily. You can enter one of the following waterlily number to pass and jump on the corresponding waterlily : ");
-            nextRow = pond[player.pondGridPosition.y.intValue() + 1];
+            nextRow = pond[player.pondGridPosition.y + 1];
             IntStream.rangeClosed(1, nextRow.waterlilies.length).forEachOrdered((i) -> System.out.printf(".%d   ",i));
             println("");
 
@@ -151,7 +160,7 @@ public class Pond {
                 if (scanner.hasNextInt()) {
                     int waterlilyChoice = scanner.nextInt();
                     if (waterlilyChoice <= nextRow.waterlilies.length && waterlilyChoice > 0) {
-                        player.move((int) (player.pondGridPosition.y + 1), waterlilyChoice - 1, pond);
+                        player.move(player.pondGridPosition.y + 1, waterlilyChoice - 1, pond);
                         validInput = true;
                     } else {
                         println("Please enter a valid waterlily choice number");
@@ -183,7 +192,7 @@ public class Pond {
 
                             if (animalToEat!=null) {
                                 player.eat(animalToEat);
-                                score += animalToEat.nutriscore;
+                                score += animalToEat.isDead() ? 0 : animalToEat.nutriscore;
                             }
                         }
                         validInput = true;
@@ -204,13 +213,13 @@ public class Pond {
         for (int rowId = 0; rowId < rowsCount; rowId++) {
 
             //Row waterlilies generation
-            int waterliliesCount = (int) rand(WATERLILIES_COUNT_MIN, WATERLILIES_COUNT_MAX);
+            int waterliliesCount = (int) rand(WATERLILIES_COUNT_MIN, WATERLILIES_COUNT_MAX + 1);
             Waterlily[] waterlilies = new Waterlily[waterliliesCount];
             double posY = rowId * SPACE_BETWEEN_ROW;;
             for (int wId = 0; wId < waterliliesCount; wId++) {
                 double posX = (wId + (waterliliesCount - 1) / 2.0) * SPACE_BETWEEN_WATERLILIES;
 
-                waterlilies[wId] = new Waterlily((int) rand(WATERLILIES_CAPACITY_MIN, WATERLILIES_CAPACITY_MAX), new Vector2(wId, rowId));
+                waterlilies[wId] = new Waterlily((int) rand(WATERLILIES_CAPACITY_MIN, WATERLILIES_CAPACITY_MAX), new Vector2Int(wId, rowId));
 
 
                 //Static food generation
@@ -249,7 +258,7 @@ public class Pond {
                         default:
                             insect = new Fly();
                     }
-                    insect.position = new Vector2(posX, posY);
+                    insect.position = new Vector2Double(posX, posY);
                     waterlilies[wId].addAnimal(insect);
                 }
 

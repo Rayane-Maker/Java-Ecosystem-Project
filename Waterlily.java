@@ -1,4 +1,5 @@
-import Mathf.Vector2;
+import Mathf.Vector2Double;
+import Mathf.Vector2Int;
 
 public class Waterlily extends GameObject {
     private Boolean isFree;
@@ -7,9 +8,9 @@ public class Waterlily extends GameObject {
     private StaticFood[] foods;
     private Animal[] animals;
 
-    private Vector2 pondGridPosition;
+    private Vector2Int pondGridPosition;
 
-    public Waterlily(int capacity, Vector2 pondGridPosition) {
+    public Waterlily(int capacity, Vector2Int pondGridPosition) {
         super(); // Call parent class constructor using super()
         this.isFree = true;
         this.capacity = capacity;
@@ -19,7 +20,7 @@ public class Waterlily extends GameObject {
         this.animals = animals;
     }
 
-    public Vector2 getPondGridPosition() {
+    public Vector2Int getPondGridPosition() {
         return this.pondGridPosition;
     }
 
@@ -36,12 +37,15 @@ public class Waterlily extends GameObject {
     }
 
 
-    public void listenAnimals() {
+    public String[] listenAnimals() {
+        String[] res = new String[0];
         if (this.animals != null) {
-            for (Animal animal : this.animals) {
-                System.out.println(animal);
-            }
+            res = new String[animals.length];
+                for (int i = 0; i < animals.length; i++) {
+                    res[i] = animals[i].toString(); //+ "("+pondGridPosition.x+")"; Uncomment to verify that animal voices are well shuffled in game
+                }
         }
+        return res;
     }
 
     public void addFood(StaticFood food) {

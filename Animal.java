@@ -1,5 +1,3 @@
-import Mathf.Vector2;
-
 public class Animal extends Biologic {
     protected String name;
 
@@ -54,9 +52,7 @@ public class Animal extends Biologic {
      *            The biologic element to try to feed the animal.
      */
     public void eat(Biologic food){
-
     }
-
 
     /**
      * Grow the animal by increasing it key
@@ -72,27 +68,7 @@ public class Animal extends Biologic {
     }
 
 
-    /**
-     * Listen for animals and insects forward and display theirs
-     * responses on the console
-     * @param pond
-     *            the animal observing its forward surroundings.
-     */
-    public void observeForward(Row[] pond) {
 
-        Vector2 pondGridPosition = currentWaterlily.getPondGridPosition();
-        int pondX = pondGridPosition.x.intValue();
-        int pondY = pondGridPosition.y.intValue();
-        int nextPondY = pondY + 1;
-        if (nextPondY > pond.length - 1) {
-            return;
-        }
-        Waterlily[] waterlilies = pond[nextPondY].waterlilies;
-        for (Waterlily waterlily : waterlilies) {
-            waterlily.listenAnimals();
-        }
-
-    }
 
     public boolean isDead(){
         return this.mass <= 0;

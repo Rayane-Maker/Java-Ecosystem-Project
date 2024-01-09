@@ -1,4 +1,6 @@
-public class Amphibian extends Animal {
+import ArrayUtil.RandomOperations;
+
+public class Amphibian extends Animal implements Player {
 
     public int age; //In months
 
@@ -7,12 +9,12 @@ public class Amphibian extends Animal {
 
 
     //Constructors
-    Amphibian(String _name, double ageInYears){
+    Amphibian(String _name, double ageInYears) {
         this(_name);
-        this.age = (int)(ageInYears * 12);
+        this.age = (int) (ageInYears * 12);
     }
 
-    Amphibian(String _name){
+    Amphibian(String _name) {
         super(); //Call parent class constructor using super()
         this.name = _name;
         this.age = 5;
@@ -21,6 +23,8 @@ public class Amphibian extends Animal {
 
     @Override
     public void eat(Biologic food) {
+        super.eat(food);
+
         if (food instanceof Insect insectFood) {
 
             //Early quit the method if the insect is dead
@@ -30,20 +34,22 @@ public class Amphibian extends Animal {
 
             //Kill the fly or make it stronger
             if (tongueSpeed > insectFood.speed) {
-                insectFood.setMass(0);
                 Class<?> _class = insectFood.getClass();
 
-                System.out.printf("My name is %s and I just eat a %s%n", name, _class.getName());
+                System.out.println(String.format("My name is %s and I have just eaten a %s", name, _class.getName()));
                 grow((int) (insectFood.nutriscore * insectFood.mass));
+                insectFood.setMass(0);
+
             } else {
+                System.out.println(String.format("My name is %s and I failed to catch my food sniif", name));
                 insectFood.grow(1);
             }
         }
     }
 
     @Override
-    public void grow(int _deltaMass) {
-        super.grow(_deltaMass);
+    public void grow(int _delta) {
+        super.grow(_delta);
     }
 
     @Override
@@ -51,5 +57,28 @@ public class Amphibian extends Animal {
         return String.format("My name is %s and I’m a rare amphibian. I’m %d months old and my tongue has a speed of %.2f.", name, age, tongueSpeed);
     }
 
+    /**
+     * Listen for animals and insects forward and display theirs
+     * responses on the console
+     *
+     * @param pond the animal observing its forward surroundings.
+     */
+    @Override
+    public String[][] observeForward(Row[] pond) {
+        String[][] rowResponses = new String[0][0];
+        int pondCoordY = pondGridPosition.y;
 
+        //If there is no more waterlilies row in front of him just leave here
+        if (pondCoordY + 1 > pond.length - 1) {
+            return rowResponses;
+        }
+
+        Waterlily[] waterlilies = pond[pondCoordY + 1].waterlilies;
+        rowResponses = new String[waterlilies.length][0];
+
+        for (int i = 0; i < waterlilies.length; i++) {
+            rowResponses[i] = waterlilies[i].listenAnimals();
+        }
+        return (String[][]) RandomOperations.shuffle(rowResponses);
+    }
 }
