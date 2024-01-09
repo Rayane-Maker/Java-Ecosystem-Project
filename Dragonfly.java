@@ -63,10 +63,10 @@ public class Dragonfly extends Insect{
     public String toString() {
         //return super.toString();
         if (this.mass <= 0){
-            return String.format("I'm dead, but I used to be a Dragonfly with a speed of %.2f", this.speed);
+            return String.format("I'm dead, but I used to be a dragonfly with a speed of %.2f", this.speed);
         }
 
-        return String.format("I'm a speedy Dragonfly with %.2f speed and %.2f mass", speed, mass);
+        return String.format("I'm a speedy dragonfly with %.2f speed and %.2f mass", speed, mass);
     }
 
 

@@ -63,10 +63,10 @@ public class Firefly extends Insect{
     public String toString() {
         //return super.toString();
         if (this.mass <= 0){
-            return String.format("I'm dead, but I used to be a Firefly with a speed of %.2f", this.speed);
+            return String.format("I'm dead, but I used to be a firefly with a speed of %.2f", this.speed);
         }
 
-        return String.format("I'm a speedy Firefly with %.2f speed and %.2f mass", speed, mass);
+        return String.format("I'm a speedy firefly with %.2f speed and %.2f mass", speed, mass);
     }
 
     //Firefly can eat dead animals but also static food
