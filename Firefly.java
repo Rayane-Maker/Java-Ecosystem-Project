@@ -10,8 +10,8 @@
  * </ul>
  * </p>
  * <p>
- * Firefly inherits directly from Insect class which inherits
- * from Animal class.
+ * Firefly inherits directly from Insect class which
+ * inherits from Animal class.
  * </p>
  *
  *
