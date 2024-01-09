@@ -21,7 +21,7 @@
 public class Fly extends Insect{
 
     //Constructors
-    Fly(float _mass, double _speed){
+    Fly(double _mass, double _speed){
         super(_mass, _speed);
         this.nutriscore = 2;
 

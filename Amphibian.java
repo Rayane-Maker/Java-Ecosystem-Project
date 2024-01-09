@@ -41,7 +41,7 @@ public class Amphibian extends Animal implements Player {
                 insectFood.setMass(0);
 
             } else {
-                System.out.println(String.format("My name is %s and I failed to catch my food sniif", name));
+                System.out.println(String.format("My name is %s and I failed to catch my food. Sniif !", name));
                 insectFood.grow(1);
             }
         }

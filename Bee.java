@@ -19,24 +19,24 @@
  * @version 1.0
  */
 
-public class Firefly extends Insect{
+public class Bee extends Insect{
 
     //Constructors
-    Firefly(float _mass, double _speed){
+    Bee(double _mass, double _speed){
         super(_mass, _speed);
-        this.nutriscore = 6;
+        this.nutriscore = -6;
     }
 
-    Firefly(double _mass){
+    Bee(double _mass){
 
         super(_mass);
-        this.nutriscore = 6;
+        this.nutriscore = -6;
 
     }
 
-    Firefly(){
+    Bee(){
         super();
-        this.nutriscore = 6;
+        this.nutriscore = -6;
 
     }
 
@@ -63,10 +63,10 @@ public class Firefly extends Insect{
     public String toString() {
         //return super.toString();
         if (this.mass <= 0){
-            return String.format("I'm dead, but I used to be a firefly with a speed of %.2f", this.speed);
+            return String.format("I'm dead, but I used to be a bee with a speed of %.2f", this.speed);
         }
 
-        return String.format("I'm a speedy firefly with %.2f speed and %.2f mass", speed, mass);
+        return String.format("I'm a speedy bee with %.2f speed and %.2f mass", speed, mass);
     }
 
     //Firefly can eat dead animals but also static food

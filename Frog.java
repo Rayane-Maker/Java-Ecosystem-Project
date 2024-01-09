@@ -67,14 +67,17 @@ public class Frog extends Amphibian{
         //Make age change impact tongue speed performance
         float speedIncrFactor = 1;
         float speedDecrFactor = 1;
-        tongueSpeed += age < 12 ? _deltaAge * speedIncrFactor :
-                age > 30 ? _deltaAge * speedDecrFactor : 0;
-
+        if (_deltaAge > 0) {
+            tongueSpeed += age < 12 ? _deltaAge * speedIncrFactor :
+                    age > 30 ? _deltaAge * speedDecrFactor : 0;
+        }else{
+            tongueSpeed += _deltaAge; //Venimous animal impact negatively tongueSpeed
+        }
         //Increase age
         age += _deltaAge;
 
         //Constrain tongue speed
-        tongueSpeed = tongueSpeed < 5 ? 5 : tongueSpeed;
+        tongueSpeed = tongueSpeed < 0 ? 0 : tongueSpeed;
 
         //Update froglet status
         isFroglet = age > 1 && age < 7;

@@ -24,6 +24,7 @@ public class Pond {
 
     final static Double SPACE_BETWEEN_ROW = 5.0, SPACE_BETWEEN_WATERLILIES = 3.0;
 
+    final static int MAX_TOUR_WITHOUT_EAT = 2;
 
     public static Row[] pond;
 
@@ -35,6 +36,10 @@ public class Pond {
     static Amphibian player;
     static Row nextRow;
     static int score = 0;
+    static  boolean canEat = true;
+
+    static int noEatCount = 0;
+    static  boolean canJump = true;
     static int scoreMultiplier = 10;
 
     static boolean gameFinished = false;
@@ -89,20 +94,29 @@ public class Pond {
 
             //The player choose to move the player
             if (scanner.hasNextInt()) {
-                int waterlilyChoice = scanner.nextInt();
-                if (waterlilyChoice <= nextRow.waterlilies.length && waterlilyChoice > 0) {
-                    player.move(player.pondGridPosition.y + 1, waterlilyChoice - 1, pond);
-                    validInput = true;
-                } else {
-                    println("Please enter a valid waterlily choice number");
+                if (canJump) {
+                    int waterlilyChoice = scanner.nextInt();
+                    if (waterlilyChoice <= nextRow.waterlilies.length && waterlilyChoice > 0) {
+                        player.move(player.pondGridPosition.y + 1, waterlilyChoice - 1, pond);
+                        canEat = true;
+                        noEatCount++;
+                        validInput = true;
+                    } else {
+                        println("Please enter a valid waterlily choice number");
+                    }
+                }else{
+                    println("It's time to eat ! You cannot jump !");
                 }
             } else {
                 String userInput = scanner.nextLine();
 
 
                 //The player choose to eat :
-                if (Objects.equals(userInput.toLowerCase(), eatCommand)) {
+                if (Objects.equals(userInput.toLowerCase(), eatCommand) && canEat) {
                     eatAction();
+                    canEat = false;
+                    noEatCount = 0;
+                    canJump = true;
                     validInput = true;
                 }
 
@@ -115,9 +129,22 @@ public class Pond {
             }
         }
 
+        //Check if the player has reached the max tour without eat
+        if (noEatCount >= MAX_TOUR_WITHOUT_EAT) {
+            canJump = false;
+            canEat = true;
+        }
+
+        System.out.println(noEatCount);
+
         //Check if the player has reach the top of the pond
         if (player.pondGridPosition.y == pond.length - 1) {
             finishGame();
+        }
+
+        //Check if the player loose the game
+        if (player.tongueSpeed == 0) {
+            loseGame();
         }
 
     }
@@ -214,7 +241,7 @@ public class Pond {
                             insect = new Fly(4, rand(1,20));
                             break;
                         case 1:
-                            insect = new Firefly(5, rand(1,4));
+                            insect = new Bee(5, rand(1,4));
                             break;
                         case 2:
                             insect = new Dragonfly(3, rand(1,8));
@@ -306,8 +333,6 @@ public class Pond {
             if (animalToEat != null) {
                 score += animalToEat.isDead() ? 0 : animalToEat.nutriscore;
                 player.eat(animalToEat);
-                System.out.println(animalToEat.nutriscore);
-                System.out.println(score);
             }
         }
     }
@@ -320,6 +345,11 @@ public class Pond {
 
     public static void finishGame(){
         println(String.format("Your score : %d", score));
+        quitGame = true;
+    }
+
+    public static void loseGame(){
+        println(String.format("Your are dead ! Score : %d", score));
         quitGame = true;
     }
 
