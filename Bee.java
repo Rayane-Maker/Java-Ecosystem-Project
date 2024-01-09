@@ -1,8 +1,8 @@
 
 /**
- * <b>This class inherits from Insect class and simulates a firefly.</b>
+ * <b>This class inherits from Insect class and simulates a Bee.</b>
  * <p>
- * Firefly class redefine :
+ * Bee class redefine :
  * <ul>
  * <li>eat() method.</li>
  * <li>grow() method.</li>
@@ -10,7 +10,7 @@
  * </ul>
  * </p>
  * <p>
- * Firefly inherits directly from Insect class which
+ * Bee inherits directly from Insect class which
  * inherits from Animal class.
  * </p>
  *

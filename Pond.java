@@ -1,3 +1,10 @@
+/**
+ * <b>This class simulates a pond and drives the game.</b>
+ *
+ * @author Rayan Géta
+ * @version 1.0
+ */
+
 import Mathf.Vector2Double;
 import Mathf.Vector2Int;
 import StringUtil.StringColor;

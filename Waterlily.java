@@ -1,20 +1,15 @@
 /**
  * <b>This class inherits from GameObject and simulates a waterlily.</b>
  * <p>
- * Fly class redefine :
+ * Waterlily class redefine :
  * <ul>
  * <li>eat() method.</li>
  * <li>grow() method.</li>
  * <li>toString().</li>
  * </ul>
  * </p>
- * <p>
- * Fly inherits directly from Insect class which inherits
- * from Animal class.
- * </p>
  *
- *
- * @author Theo Thuiller
+ * @author Antoine Diez--Latteur
  * @version 1.0
  */
 

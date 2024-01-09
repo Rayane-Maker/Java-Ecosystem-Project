@@ -1,3 +1,23 @@
+/**
+ * <b>This class inherits from Animal class and simulates an amphibian.</b>
+ * <p>
+ * Amphibian class redefine :
+ * <ul>
+ * <li>eat() method.</li>
+ * <li>grow() method.</li>
+ * <li>toString().</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Amphibian inherits directly from Animal class which inherits
+ * from Biologic class.
+ * </p>
+ *
+ *
+ * @author Theo Thuiller
+ * @version 1.0
+ */
+
 import ArrayUtil.RandomOperations;
 
 public class Amphibian extends Animal implements Player {

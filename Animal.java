@@ -9,7 +9,7 @@
  * </ul>
  * </p>
  * <p>
- * Firefly inherits directly from Biologic class which inherits
+ * Animal inherits directly from Biologic class which inherits
  * from GameObject class.
  * </p>
  *

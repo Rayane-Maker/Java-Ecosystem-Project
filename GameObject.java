@@ -1,7 +1,7 @@
 /**
  * <b>This class equips objects with coordinates.</b>
  *
- * @author Theo Thuiller
+ * @author Rayan Géta
  * @version 1.0
  */
 

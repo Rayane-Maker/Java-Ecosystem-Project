@@ -9,7 +9,7 @@
  * </p>
  *
  *
- * @author Theo Thuiller
+ * @author Antoine Diez--Latteur
  * @version 1.0
  */
 

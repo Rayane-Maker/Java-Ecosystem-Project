@@ -9,7 +9,7 @@
  * </ul>
  * </p>
  * <p>
- * Firefly inherits directly from Amphibian class which inherits
+ * Frog inherits directly from Amphibian class which inherits
  * from Animal class.
  * </p>
  *
