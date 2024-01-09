@@ -16,7 +16,7 @@ public class Pond {
     final static int WATERLILIES_COUNT_MIN = 2, WATERLILIES_COUNT_MAX = 5;
 
     final static int WATERLILIES_CAPACITY_MIN = 3, WATERLILIES_CAPACITY_MAX = 5;
-    
+
     final static int INSECT_TYPE_COUNT = 3;
     final static int FOOD_TYPE_COUNT = 2;
     final static int FOOD_COUNT_MIN = 1, FOOD_COUNT_MAX = 3;
@@ -40,7 +40,7 @@ public class Pond {
     static boolean gameFinished = false;
 
 
-    /*********************** Game Lifecycle ***************/
+    /***************************************** Game Lifecycle ***********************************/
     private static boolean quitGame;
     public static void main(String[] args){
         onStart();
@@ -50,52 +50,91 @@ public class Pond {
         }
 
     }
-    public static void quitGame(){
-        quitGame = true;
-    }
-    /*******************************************************/
 
 
-
-
+    /**
+     * Game initializations
+     */
     public static void onStart() {
 
-        //**** Tests ****//
+        gamePresentation();
 
-        //Frogs Instances
-        Frog peepo = new Frog("Peepo");
-        Frog pepe = new Frog("Pepe", 10.0 / 12, 15);
-        Frog peepaw = new Frog("Peepaw", 4.6, 5);
-        Frog popopo = new Frog("Popopo", 10, 40); //custom
+        /* // Generate and populate the pond (Automatic/Random approach) // */
+        pond = GeneratePond();
+        println(String.format("There are %d waterlilies rows", pond.length));
 
+        //Ask the player for a name for its amphibian character
+        println("\nEnter your name : \n");
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.nextLine();
 
-        //Fly Instances
-        Fly fl1 = new Fly(1, 3);
-        Fly fl6 = new Fly(6);
-        Fly flc = new Fly(5, 8); //custom
+        playerInit(userInput, new Vector2Int(0,0),  1f/12, 15);
 
+    }
 
-        //Simulation operations tests
-        Frog.setSpecies("1331");
+    /**
+     * Game loop mechanic
+     */
+    public static void onLoop() {
 
-        System.out.println(peepo);
-        peepo.eat(fl6);
-        System.out.println(fl6);
-        peepo.grow(8);
-        System.out.println(peepo);
-
-        peepo.eat(fl6);
-        System.out.println(fl6);
-        System.out.println(peepo);
-
-        System.out.println(popopo);
-
-        peepaw.grow(4);
-        System.out.println(peepaw);
-        System.out.println(pepe);
+        /* /////////////////////////// Updates and display indications  ////////////////////////////// */
+        displayIndications();
 
 
-        //Game Initialization
+        /* ////////////////////////////////// Player Actions ///////////////////////////////////////// */
+        boolean validInput = false;
+        //Scan user keyboard inputs
+        while (!validInput) {
+            Scanner scanner = new Scanner(System.in);
+
+            //The player choose to move the player
+            if (scanner.hasNextInt()) {
+                int waterlilyChoice = scanner.nextInt();
+                if (waterlilyChoice <= nextRow.waterlilies.length && waterlilyChoice > 0) {
+                    player.move(player.pondGridPosition.y + 1, waterlilyChoice - 1, pond);
+                    validInput = true;
+                } else {
+                    println("Please enter a valid waterlily choice number");
+                }
+            } else {
+                String userInput = scanner.nextLine();
+
+
+                //The player choose to eat :
+                if (Objects.equals(userInput.toLowerCase(), eatCommand)) {
+                    eatAction();
+                    validInput = true;
+                }
+
+
+                //The player choose to early quit the game :
+                if (Objects.equals(userInput.toLowerCase(), quitCommand)) {
+                    earlyQuitGame();
+                    validInput = true;
+                }
+            }
+        }
+
+        //Check if the player has reach the top of the pond
+        if (player.pondGridPosition.y == pond.length - 1) {
+            finishGame();
+        }
+
+    }
+
+
+    ////////////////////////////////////////////  Functions definitions ////////////////////////////////////////////
+
+
+    // ********************** Game start functions ************************** //
+
+    /**
+     * This method :
+     * - display game information (Title screen, version, etc...)
+     * - load and display the game manual
+     */
+    public static void gamePresentation() {
+
         println("\nJava Ecosystem Game (Console Version)\n");
 
         /* //Load Game Instructions // */
@@ -103,109 +142,35 @@ public class Pond {
         if (readFile("gameManual.txt", instructions)) {
             println(instructions.toString());
         }
-
-        /* // Generate and populate the pond (Automatic/Random approach) // */
-        pond = GeneratePound();
-        println(String.format("There are %d rows", pond.length));
-
-        //Ask the player for a name for its amphibian character
-        println("\nEnter your name : \n");
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.nextLine();
-
-        //Create the player and place it
-        player = new Frog(userInput, 1f/12, 15);
-        player.move(0, 0, pond);
     }
 
-    public static void onLoop(){
 
-        if (player.pondGridPosition.y < pond.length - 1) {
-
-            /* ///////////// Print animals in front of the player /////////// */
-            System.out.print(StringColor.ANSI_GREEN);
-            System.out.print(player);
-            println(String.format("\nI am at the row number %d. I hear voices coming from the next row: \n", player.pondGridPosition.y + 1));
-            System.out.print(StringColor.ANSI_RESET);
-            String[][] allVoices = player.observeForward(pond);
-            for (String[] waterlilyVoices : allVoices){
-                for (String voice : waterlilyVoices) {
-                    System.out.print(StringColor.ANSI_BLUE);
-                    println(voice);
-                    System.out.print(StringColor.ANSI_RESET);
-                }
-            }
-
-            /* ///////////// Purpose action choices to the player /////// */
-            println("\nEnter 'e' to try to eat insects on your waterlily. You can enter one of the following waterlily number to pass and jump on the corresponding waterlily : ");
-            nextRow = pond[player.pondGridPosition.y + 1];
-            IntStream.rangeClosed(1, nextRow.waterlilies.length).forEachOrdered((i) -> System.out.printf(".%d   ",i));
-            println("");
-
-        }
-        else{
-            println(String.format("Your score : %d", score));
-            gameFinished = true;
-        }
-
-        //Player Actions
-        if (!gameFinished) {
-
-            boolean validInput = false;
-            //Scan user keyboard inputs
-            while (!validInput) {
-                Scanner scanner = new Scanner(System.in);
-
-                if (scanner.hasNextInt()) {
-                    int waterlilyChoice = scanner.nextInt();
-                    if (waterlilyChoice <= nextRow.waterlilies.length && waterlilyChoice > 0) {
-                        player.move(player.pondGridPosition.y + 1, waterlilyChoice - 1, pond);
-                        validInput = true;
-                    } else {
-                        println("Please enter a valid waterlily choice number");
-                    }
-                } else {
-                    String userInput = scanner.nextLine();
-
-                    //Quit the game
-                    if (Objects.equals(userInput.toLowerCase(), quitCommand)) {
-                        quitGame();
-                        validInput = true;
-                    }
-
-                    //Eat
-                    if (Objects.equals(userInput.toLowerCase(), eatCommand)) {
-                        Animal[] animals = player.currentWaterlily.getAnimals();
-                        if (animals.length > 1) {
-
-                            Animal animalToEat = null;
-                            for (Animal animal : animals) {
-                                if (animal != player) {
-                                    animalToEat = animal;
-
-                                    if (rand(0, 100) < 40) {
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (animalToEat!=null) {
-                                player.eat(animalToEat);
-                                score += animalToEat.isDead() ? 0 : animalToEat.nutriscore;
-                            }
-                        }
-                        validInput = true;
-                    }
-                }
-            }
-        }else{
-            quitGame();
-        }
+    /**
+     * Instantiate a player (Amphibian) and place it
+     * @param userName
+     *            The name of the player during the game.
+     * @param pondGridPosition
+     *            Waterlily position where the player will be at start
+     * @param ageInYears
+     *             Age of the amphibian player, affect its growing behavior.
+     * @param tongueSpeed
+     *             Tongue speed of the amphibian player. Affect the ability to catch a fast insect.
+     */
+    public static void playerInit(String userName, Vector2Int pondGridPosition, double ageInYears, int tongueSpeed) {
+        player = new Frog(userName, ageInYears, tongueSpeed);
+        player.move(pondGridPosition.y, pondGridPosition.x,  pond);
     }
 
-    ////////////////// Functions ////////////////////////////
 
-    public static Row[] GeneratePound() {
+    /**
+     * This method generates an array of waterlilies rows
+     * that embody the pond itself in terms of content :
+     * - Waterlilies (quantities and position)
+     * - Insects (quantities and distribution on waterlilies)
+     * - Static Foods (quantities and distribution on waterlilies)
+     * They are all generated in a random way.
+     */
+    public static Row[] GeneratePond() {
         //Rows of waterlilies
         int rowsCount = (int) rand(ROW_COUNT_MIN, ROW_COUNT_MAX);
         Row[] rows = new Row[rowsCount];
@@ -278,7 +243,87 @@ public class Pond {
         }
         return rows;
     }
-    
+
+
+
+    // ************************* In game loop functions ************************** //
+    /**
+     * This method is meant to display at each game tour :
+     * - The player state
+     * - The player observation about what animals are in front of him
+     * - The possibilities of actions that the player can do for this tour
+     */
+    public static void displayIndications() {
+        displayPlayerState();
+        displayPlayerObservations();
+        displayActionsPossibilities();
+    }
+
+    public static void displayPlayerState(){
+        System.out.print(StringColor.ANSI_GREEN);
+        System.out.print(player);
+        println(String.format("\nI am at the row number %d. I hear voices coming from the next row: \n", player.pondGridPosition.y + 1));
+        System.out.print(StringColor.ANSI_RESET);
+    }
+
+    public static void displayPlayerObservations(){
+        String[][] allVoices = player.observeForward(pond);
+        for (String[] waterlilyVoices : allVoices) {
+            for (String voice : waterlilyVoices) {
+                System.out.print(StringColor.ANSI_BLUE);
+                println(voice);
+                System.out.print(StringColor.ANSI_RESET);
+            }
+        }
+    }
+
+
+    public static void displayActionsPossibilities(){
+        println("\nEnter 'e' to try to eat insects on your waterlily. You can enter one of the following waterlily number to pass and jump on the corresponding waterlily : ");
+        nextRow = pond[player.pondGridPosition.y + 1];
+        IntStream.rangeClosed(1, nextRow.waterlilies.length).forEachOrdered((i) -> System.out.printf(".%d   ", i));
+        println("");
+    }
+
+
+
+    //Player actions
+    public static void eatAction(){
+        Animal[] animals = player.currentWaterlily.getAnimals();
+        if (animals.length > 1) {
+
+            Animal animalToEat = null;
+            for (Animal animal : animals) {
+                if (animal != player) {
+                    animalToEat = animal;
+
+                    if (rand(0, 100) < 40) {
+                        break;
+                    }
+                }
+            }
+
+            if (animalToEat != null) {
+                score += animalToEat.isDead() ? 0 : animalToEat.nutriscore;
+                player.eat(animalToEat);
+                System.out.println(animalToEat.nutriscore);
+                System.out.println(score);
+            }
+        }
+    }
+
+
+
+    public static void earlyQuitGame(){
+        quitGame = true;
+    }
+
+    public static void finishGame(){
+        println(String.format("Your score : %d", score));
+        quitGame = true;
+    }
+
+
 
     static void println(String s){
         System.out.println(s);
