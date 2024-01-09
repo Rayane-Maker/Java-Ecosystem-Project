@@ -1,3 +1,18 @@
+
+/**
+ * <b>This class inherits from StaticFood class and simulates a flower.</b>
+ * <p>
+ * </p>
+ * <p>
+ * Flower inherits directly from StaticFood class which inherits
+ * from GameObject class.
+ * </p>
+ *
+ *
+ * @author Theo Thuiller
+ * @version 1.0
+ */
+
 public class Flower extends StaticFood {
 
     static int DEFAULT_NUTRISCORE = 4;

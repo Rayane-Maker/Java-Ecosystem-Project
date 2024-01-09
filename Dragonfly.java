@@ -69,7 +69,11 @@ public class Dragonfly extends Insect{
         return String.format("I'm a speedy dragonfly with %.2f speed and %.2f mass", speed, mass);
     }
 
-
+    /**
+     * if the food is an Animal class instance, uses it as a variable and eats it
+     * @param food
+     *            The biologic element to try to feed the animal.
+     */
     @Override
     public void eat(Biologic food){
         super.eat(food);
@@ -80,7 +84,11 @@ public class Dragonfly extends Insect{
         }
     }
 
-
+    /**
+     *
+     * @param _deltaMass
+     *            Drive how grow the animal.
+     */
     @Override
     public void grow(int _deltaMass){
 

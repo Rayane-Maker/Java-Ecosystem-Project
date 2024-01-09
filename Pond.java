@@ -95,7 +95,6 @@ public class Pond {
         System.out.println(pepe);
 
 
-
         //Game Initialization
         println("\nJava Ecosystem Game (Console Version)\n");
 

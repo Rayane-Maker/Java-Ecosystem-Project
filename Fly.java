@@ -68,8 +68,11 @@ public class Fly extends Insect{
         return String.format("I'm a speedy fly with %.2f speed and %.2f mass", speed, mass);
     }
 
-    //Fly can eat dead animals but also static food
-
+    /**
+     * Fly can eat dead animals but also static food
+     * @param food
+     *            The biologic element to try to feed the animal.
+     */
     @Override
     public void eat(Biologic food){
         super.eat(food);

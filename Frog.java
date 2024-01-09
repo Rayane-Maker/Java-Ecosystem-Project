@@ -1,4 +1,22 @@
-import StringUtil.StringColor;
+/**
+ * <b>This class inherits from Amphibian class and simulates a Frog.</b>
+ * <p>
+ * Frog class redefine :
+ * <ul>
+ * <li>eat() method.</li>
+ * <li>grow() method.</li>
+ * <li>toString().</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Firefly inherits directly from Amphibian class which inherits
+ * from Animal class.
+ * </p>
+ *
+ *
+ * @author Theo Thuiller
+ * @version 1.0
+ */
 
 public class Frog extends Amphibian{
 
@@ -36,6 +54,12 @@ public class Frog extends Amphibian{
 
 
     //Specific methods
+    /**
+     * The growth of the animal impacts its age and its tongue's speed
+     *
+     * @param _deltaAge
+     *            Drive how grow the animal.
+     */
     @Override
     public void grow(int _deltaAge){
         super.grow(_deltaAge);
@@ -44,7 +68,7 @@ public class Frog extends Amphibian{
         float speedIncrFactor = 1;
         float speedDecrFactor = 1;
         tongueSpeed += age < 12 ? _deltaAge * speedIncrFactor :
-                       age > 30 ? _deltaAge * speedDecrFactor : 0;
+                age > 30 ? _deltaAge * speedDecrFactor : 0;
 
         //Increase age
         age += _deltaAge;
@@ -65,6 +89,10 @@ public class Frog extends Amphibian{
         super.eat(food);
     }
 
+    /**
+     * dispays information the frog's state (age and tongue's speed)
+     * @return
+     */
     @Override
     public String toString() {
         //return super.toString();

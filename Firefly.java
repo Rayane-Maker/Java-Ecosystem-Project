@@ -1,6 +1,6 @@
 
 /**
- * <b>This class inherits from Insect class and simulates a fly.</b>
+ * <b>This class inherits from Insect class and simulates a firefly.</b>
  * <p>
  * Firefly class redefine :
  * <ul>
@@ -70,7 +70,11 @@ public class Firefly extends Insect{
     }
 
     //Firefly can eat dead animals but also static food
-
+    /**
+     * if the food is an Animal class instance, uses it as a variable and eats it
+     * @param food
+     *            The biologic element to try to feed the animal.
+     */
     @Override
     public void eat(Biologic food){
         super.eat(food);

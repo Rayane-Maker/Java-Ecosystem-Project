@@ -1,4 +1,9 @@
-import Mathf.Vector2Double;
+/**
+ * <b>This class inherits from GameObject class and regroups all objects that can be eaten.</b>
+ *
+ * @author Theo Thuiller
+ * @version 1.0
+ */
 import Mathf.Vector2Int;
 
 public class Biologic extends GameObject{

@@ -1,3 +1,23 @@
+/**
+ * <b>This class inherits from GameObject and simulates a waterlily.</b>
+ * <p>
+ * Fly class redefine :
+ * <ul>
+ * <li>eat() method.</li>
+ * <li>grow() method.</li>
+ * <li>toString().</li>
+ * </ul>
+ * </p>
+ * <p>
+ * Fly inherits directly from Insect class which inherits
+ * from Animal class.
+ * </p>
+ *
+ *
+ * @author Theo Thuiller
+ * @version 1.0
+ */
+
 import Mathf.Vector2Double;
 import Mathf.Vector2Int;
 
@@ -41,13 +61,19 @@ public class Waterlily extends GameObject {
         String[] res = new String[0];
         if (this.animals != null) {
             res = new String[animals.length];
-                for (int i = 0; i < animals.length; i++) {
-                    res[i] = animals[i].toString(); //+ "("+pondGridPosition.x+")"; Uncomment to verify that animal voices are well shuffled in game
-                }
+            for (int i = 0; i < animals.length; i++) {
+                res[i] = animals[i].toString(); //+ "("+pondGridPosition.x+")"; Uncomment to verify that animal voices are well shuffled in game
+            }
         }
         return res;
     }
 
+    /**
+     * allows to add food (class StaticFood) to the waterlily (attribute "foods")
+     * if food is already on the waterlily, extends the length of attribute "foods" and adds food
+     * else creates simply new food
+     * @param food
+     */
     public void addFood(StaticFood food) {
         StaticFood[] newStaticFoods;
 
@@ -64,6 +90,15 @@ public class Waterlily extends GameObject {
         }
         this.foods = newStaticFoods;
     }
+
+    /**
+     * if there is enough space on the waterlily, adds an animal
+     * increments attribute "occupantCount"
+     * put back already present animals and adds a new animal (class Animal)
+     * updates animal's position
+     * @param animal
+     * @return
+     */
     public boolean addAnimal(Animal animal) {
         if (isFree()) {
             this.occupentCount++;
@@ -84,6 +119,12 @@ public class Waterlily extends GameObject {
         return false;
     }
 
+    /**
+     * if there is an animal (class Animal) on the waterlily, removes it from the attribute "animals"
+     * creates an array of Animal without the removed animal an put it back in the attribute "anumals"
+     * @param animal
+     * @return
+     */
     public boolean removeAnimal(Animal animal) {
         if (this.occupentCount > 0) {
             this.occupentCount--;
