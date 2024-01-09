@@ -8,4 +8,4 @@ où le joueur doit faire le choix de manger ou non un insecte en fonction de la 
 des points. L’objectif est de traverser la mare en maximisant son score.
 
 
-Run la classe Pond.java pour tester le jeu version console
+Run la classe Pond.java dde la branche main pour tester le jeu version console
